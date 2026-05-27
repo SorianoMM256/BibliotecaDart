@@ -46,6 +46,36 @@ class Livro extends ItemBiblioteca {
   }
 }
 
+class Revista extends ItemBiblioteca {
+  int numeroEdicao;
+  String mesPublicacao;
+
+  Revista({
+    required String titulo,
+    required int anoPublicacao,
+    required int quantidadeCopias,
+    required this.numeroEdicao,
+    required this.mesPublicacao,
+  }) : super(
+          titulo: titulo,
+          anoPublicacao: anoPublicacao,
+          quantidadeCopias: quantidadeCopias,
+          custoBase: 5.00,
+          multaPorDiaAtraso: 1.00,
+        );
+
+  @override
+  void exibirDetalhes() {
+    print('Revista: $titulo');
+    print('Edição: $numeroEdicao');
+    print('Mês de publicação: $mesPublicacao');
+    print('Ano: $anoPublicacao');
+    print('Cópias disponíveis: $quantidadeCopias');
+    print('Custo base: R\$ $custoBase');
+    print('Multa por dia de atraso: R\$ $multaPorDiaAtraso');
+  }
+}
+
 void main() {
   Livro livro = Livro(
     titulo: 'Dom Casmurro',
@@ -55,5 +85,15 @@ void main() {
     isbn: 1001,
   );
 
+  Revista revista = Revista(
+    titulo: 'Ciência Hoje',
+    anoPublicacao: 2024,
+    quantidadeCopias: 5,
+    numeroEdicao: 120,
+    mesPublicacao: 'Março',
+  );
+
   livro.exibirDetalhes();
+  print('------------------------');
+  revista.exibirDetalhes();
 }
