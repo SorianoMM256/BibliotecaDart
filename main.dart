@@ -77,23 +77,39 @@ class Revista extends ItemBiblioteca {
 }
 
 void main() {
-  Livro livro = Livro(
-    titulo: 'Dom Casmurro',
-    anoPublicacao: 1899,
-    quantidadeCopias: 3,
-    autor: 'Machado de Assis',
-    isbn: 1001,
-  );
+  List<ItemBiblioteca> acervo = [
+    Livro(
+      titulo: 'Dom Casmurro',
+      anoPublicacao: 1899,
+      quantidadeCopias: 3,
+      autor: 'Machado de Assis',
+      isbn: 1001,
+    ),
+    Livro(
+      titulo: 'O Cortiço',
+      anoPublicacao: 1890,
+      quantidadeCopias: 2,
+      autor: 'Aluísio Azevedo',
+      isbn: 1002,
+    ),
+    Revista(
+      titulo: 'Ciência Hoje',
+      anoPublicacao: 2024,
+      quantidadeCopias: 5,
+      numeroEdicao: 120,
+      mesPublicacao: 'Março',
+    ),
+    Revista(
+      titulo: 'Superinteressante',
+      anoPublicacao: 2023,
+      quantidadeCopias: 4,
+      numeroEdicao: 450,
+      mesPublicacao: 'Agosto',
+    ),
+  ];
 
-  Revista revista = Revista(
-    titulo: 'Ciência Hoje',
-    anoPublicacao: 2024,
-    quantidadeCopias: 5,
-    numeroEdicao: 120,
-    mesPublicacao: 'Março',
-  );
-
-  livro.exibirDetalhes();
-  print('------------------------');
-  revista.exibirDetalhes();
+  for (ItemBiblioteca item in acervo) {
+    item.exibirDetalhes();
+    print('------------------------');
+  }
 }
