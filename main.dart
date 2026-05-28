@@ -42,7 +42,20 @@ abstract class ItemBiblioteca {
   print('Empréstimo realizado: $titulo para $nomeUsuario');
 
   return emprestimo;
-}
+  }
+  double devolver({
+    required Emprestimo emprestimo,
+    required DateTime dataDevolucao,
+  }) {
+  if (emprestimo.foiDevolvido) {
+    throw Exception('Este item já foi devolvido.');
+  }
+
+  quantidadeCopias++;
+  emprestimo.finalizarDevolucao(dataDevolucao);
+
+  return emprestimo.valorTotal;
+  }
 }
 
 class Livro extends ItemBiblioteca {
@@ -198,4 +211,14 @@ void main() {
   if (e1 != null) {
     emprestimos.add(e1);
   }
+  print('\nDEVOLUÇÕES\n');
+
+  double valorPago = e1!.item.devolver(
+  emprestimo: e1,
+  dataDevolucao: DateTime(2026, 5, 10),
+  );
+
+  print('Item devolvido: ${e1.item.titulo}');
+  print('Dias de atraso: ${e1.diasAtraso}');
+  print('Valor pago: R\$ $valorPago');
 }
