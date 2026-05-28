@@ -118,6 +118,16 @@ class Revista extends ItemBiblioteca {
   }
 }
 
+ItemBiblioteca? buscarPorTitulo(List<ItemBiblioteca> acervo, String titulo) {
+  for (ItemBiblioteca item in acervo) {
+    if (item.titulo.toLowerCase() == titulo.toLowerCase()) {
+      return item;
+    }
+  }
+
+  return null;
+}
+
 void listarEstoque(List<ItemBiblioteca> acervo) {
   print('\nESTOQUE DA BIBLIOTECA\n');
 
@@ -125,6 +135,25 @@ void listarEstoque(List<ItemBiblioteca> acervo) {
     item.exibirDetalhes();
     print('------------------------');
   }
+  ItemBiblioteca? buscarPorTitulo(List<ItemBiblioteca> acervo, String titulo) {
+    for (ItemBiblioteca item in acervo) {
+      if (item.titulo.toLowerCase() == titulo.toLowerCase()) {
+        return item;
+      }
+    }
+
+    return null;
+  }
+}
+
+ItemBiblioteca? buscarPorTitulo(List<ItemBiblioteca> acervo, String titulo) {
+  for (ItemBiblioteca item in acervo) {
+    if (item.titulo.toLowerCase() == titulo.toLowerCase()) {
+      return item;
+    }
+  }
+
+  return null;
 }
 
 class Emprestimo {
@@ -292,4 +321,15 @@ void main() {
   }
 
   listarEstoque(acervo);
+
+  print('\nBUSCA POR TÍTULO\n');
+
+  ItemBiblioteca? itemEncontrado = buscarPorTitulo(acervo, 'Dom Casmurro');
+
+  if (itemEncontrado != null) {
+    print('Item encontrado:');
+    itemEncontrado.exibirDetalhes();
+  } else {
+    print('Item não encontrado.');
+  }
 }
