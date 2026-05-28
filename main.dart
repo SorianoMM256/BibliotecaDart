@@ -85,6 +85,21 @@ void listarEstoque(List<ItemBiblioteca> acervo) {
   }
 }
 
+bool get disponivel {
+  return quantidadeCopias > 0;
+}
+
+bool emprestar() {
+  if (disponivel) {
+    quantidadeCopias--;
+    print('Empréstimo realizado: $titulo');
+    return true;
+  } else {
+    print('Item indisponível: $titulo');
+    return false;
+  }
+}
+
 void main() {
   List<ItemBiblioteca> acervo = [
     Livro(
