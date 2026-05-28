@@ -184,6 +184,13 @@ void main() {
       autor: 'Aluísio Azevedo',
       isbn: 1002,
     ),
+    Livro(
+      titulo: 'Capitães da Areia',
+      anoPublicacao: 1937,
+      quantidadeCopias: 2,
+      autor: 'Jorge Amado',
+      isbn: 1003,
+    ),
     Revista(
       titulo: 'Ciência Hoje',
       anoPublicacao: 2024,
@@ -198,9 +205,20 @@ void main() {
       numeroEdicao: 450,
       mesPublicacao: 'Agosto',
     ),
+    Revista(
+      titulo: 'Mundo Estranho',
+      anoPublicacao: 2022,
+      quantidadeCopias: 3,
+      numeroEdicao: 88,
+      mesPublicacao: 'Novembro',
+    ),
   ];
 
   List<Emprestimo> emprestimos = [];
+
+  listarEstoque(acervo);
+
+  print('\nEMPRÉSTIMOS\n');
 
   Emprestimo? e1 = acervo[0].emprestar(
     nomeUsuario: 'Ana',
@@ -208,17 +226,70 @@ void main() {
     dataPrevistaDevolucao: DateTime(2026, 5, 8),
   );
 
-  if (e1 != null) {
-    emprestimos.add(e1);
-  }
-  print('\nDEVOLUÇÕES\n');
-
-  double valorPago = e1!.item.devolver(
-  emprestimo: e1,
-  dataDevolucao: DateTime(2026, 5, 10),
+  Emprestimo? e2 = acervo[1].emprestar(
+    nomeUsuario: 'Bruno',
+    dataEmprestimo: DateTime(2026, 5, 2),
+    dataPrevistaDevolucao: DateTime(2026, 5, 9),
   );
 
-  print('Item devolvido: ${e1.item.titulo}');
-  print('Dias de atraso: ${e1.diasAtraso}');
-  print('Valor pago: R\$ $valorPago');
+  Emprestimo? e3 = acervo[2].emprestar(
+    nomeUsuario: 'Carla',
+    dataEmprestimo: DateTime(2026, 5, 3),
+    dataPrevistaDevolucao: DateTime(2026, 5, 10),
+  );
+
+  Emprestimo? e4 = acervo[3].emprestar(
+    nomeUsuario: 'Diego',
+    dataEmprestimo: DateTime(2026, 5, 4),
+    dataPrevistaDevolucao: DateTime(2026, 5, 11),
+  );
+
+  Emprestimo? e5 = acervo[4].emprestar(
+    nomeUsuario: 'Eduarda',
+    dataEmprestimo: DateTime(2026, 5, 5),
+    dataPrevistaDevolucao: DateTime(2026, 5, 12),
+  );
+
+  Emprestimo? e6 = acervo[5].emprestar(
+    nomeUsuario: 'Felipe',
+    dataEmprestimo: DateTime(2026, 5, 6),
+    dataPrevistaDevolucao: DateTime(2026, 5, 13),
+  );
+
+  if (e1 != null) emprestimos.add(e1);
+  if (e2 != null) emprestimos.add(e2);
+  if (e3 != null) emprestimos.add(e3);
+  if (e4 != null) emprestimos.add(e4);
+  if (e5 != null) emprestimos.add(e5);
+  if (e6 != null) emprestimos.add(e6);
+
+  listarEstoque(acervo);
+
+  print('\nDEVOLUÇÕES\n');
+
+  List<DateTime> datasDevolucao = [
+    DateTime(2026, 5, 8),  // sem atraso
+    DateTime(2026, 5, 11), // 2 dias de atraso
+    DateTime(2026, 5, 15), // 5 dias de atraso
+    DateTime(2026, 5, 11), // sem atraso
+    DateTime(2026, 5, 14), // 2 dias de atraso
+    DateTime(2026, 5, 20), // 7 dias de atraso
+  ];
+
+  for (int i = 0; i < emprestimos.length; i++) {
+    Emprestimo emprestimo = emprestimos[i];
+
+    double valorPago = emprestimo.item.devolver(
+      emprestimo: emprestimo,
+      dataDevolucao: datasDevolucao[i],
+    );
+
+    print('Item devolvido: ${emprestimo.item.titulo}');
+    print('Usuário: ${emprestimo.nomeUsuario}');
+    print('Dias de atraso: ${emprestimo.diasAtraso}');
+    print('Valor pago: R\$ $valorPago');
+    print('------------------------');
+  }
+
+  listarEstoque(acervo);
 }
