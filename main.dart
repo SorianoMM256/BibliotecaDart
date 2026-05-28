@@ -118,31 +118,12 @@ class Revista extends ItemBiblioteca {
   }
 }
 
-ItemBiblioteca? buscarPorTitulo(List<ItemBiblioteca> acervo, String titulo) {
-  for (ItemBiblioteca item in acervo) {
-    if (item.titulo.toLowerCase() == titulo.toLowerCase()) {
-      return item;
-    }
-  }
-
-  return null;
-}
-
 void listarEstoque(List<ItemBiblioteca> acervo) {
   print('\nESTOQUE DA BIBLIOTECA\n');
 
   for (ItemBiblioteca item in acervo) {
     item.exibirDetalhes();
     print('------------------------');
-  }
-  ItemBiblioteca? buscarPorTitulo(List<ItemBiblioteca> acervo, String titulo) {
-    for (ItemBiblioteca item in acervo) {
-      if (item.titulo.toLowerCase() == titulo.toLowerCase()) {
-        return item;
-      }
-    }
-
-    return null;
   }
 }
 
