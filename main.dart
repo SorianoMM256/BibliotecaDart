@@ -76,6 +76,15 @@ class Revista extends ItemBiblioteca {
   }
 }
 
+void listarEstoque(List<ItemBiblioteca> acervo) {
+  print('\nESTOQUE DA BIBLIOTECA\n');
+
+  for (ItemBiblioteca item in acervo) {
+    item.exibirDetalhes();
+    print('------------------------');
+  }
+}
+
 void main() {
   List<ItemBiblioteca> acervo = [
     Livro(
@@ -108,8 +117,5 @@ void main() {
     ),
   ];
 
-  for (ItemBiblioteca item in acervo) {
-    item.exibirDetalhes();
-    print('------------------------');
-  }
+  listarEstoque(acervo);
 }
