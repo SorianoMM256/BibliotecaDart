@@ -21,10 +21,10 @@ abstract class ItemBiblioteca {
   }
 
   Emprestimo? emprestar({
-  required String nomeUsuario,
-  required DateTime dataEmprestimo,
-  required DateTime dataPrevistaDevolucao,
-}) {
+    required String nomeUsuario,
+    required DateTime dataEmprestimo,
+    required DateTime dataPrevistaDevolucao,
+  }) {
   if (!disponivel) {
     print('O item "$titulo" está indisponível.');
     return null;
@@ -114,9 +114,6 @@ void listarEstoque(List<ItemBiblioteca> acervo) {
   }
 }
 
-
-
-
 class Emprestimo {
   ItemBiblioteca item;
   String nomeUsuario;
@@ -133,6 +130,28 @@ class Emprestimo {
 
   bool get foiDevolvido {
     return dataDevolucao != null;
+  }
+
+  int get diasAtraso {
+  if (dataDevolucao == null) {
+    return 0;
+  }
+
+  int diferenca = dataDevolucao!.difference(dataPrevistaDevolucao).inDays;
+
+  if (diferenca > 0) {
+    return diferenca;
+  }
+
+  return 0;
+  }
+
+  double get valorTotal {
+    return item.custoBase + (diasAtraso * item.multaPorDiaAtraso);
+  }
+
+  void finalizarDevolucao(DateTime data) {
+    dataDevolucao = data;
   }
 }
 
