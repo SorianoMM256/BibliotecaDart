@@ -100,6 +100,25 @@ bool emprestar() {
   }
 }
 
+class Emprestimo {
+  ItemBiblioteca item;
+  String nomeUsuario;
+  DateTime dataEmprestimo;
+  DateTime dataPrevistaDevolucao;
+  DateTime? dataDevolucao;
+
+  Emprestimo({
+    required this.item,
+    required this.nomeUsuario,
+    required this.dataEmprestimo,
+    required this.dataPrevistaDevolucao,
+  });
+
+  bool get foiDevolvido {
+    return dataDevolucao != null;
+  }
+}
+
 void main() {
   List<ItemBiblioteca> acervo = [
     Livro(
