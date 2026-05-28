@@ -5,6 +5,7 @@ abstract class ItemBiblioteca {
   double custoBase;
   double multaPorDiaAtraso;
 
+
   ItemBiblioteca({
     required this.titulo,
     required this.anoPublicacao,
@@ -14,6 +15,34 @@ abstract class ItemBiblioteca {
   });
 
   void exibirDetalhes();
+
+  bool get disponivel {
+  return quantidadeCopias > 0;
+  }
+
+  Emprestimo? emprestar({
+  required String nomeUsuario,
+  required DateTime dataEmprestimo,
+  required DateTime dataPrevistaDevolucao,
+}) {
+  if (!disponivel) {
+    print('O item "$titulo" está indisponível.');
+    return null;
+  }
+
+  quantidadeCopias--;
+
+  Emprestimo emprestimo = Emprestimo(
+    item: this,
+    nomeUsuario: nomeUsuario,
+    dataEmprestimo: dataEmprestimo,
+    dataPrevistaDevolucao: dataPrevistaDevolucao,
+  );
+
+  print('Empréstimo realizado: $titulo para $nomeUsuario');
+
+  return emprestimo;
+}
 }
 
 class Livro extends ItemBiblioteca {
@@ -85,20 +114,8 @@ void listarEstoque(List<ItemBiblioteca> acervo) {
   }
 }
 
-bool get disponivel {
-  return quantidadeCopias > 0;
-}
 
-bool emprestar() {
-  if (disponivel) {
-    quantidadeCopias--;
-    print('Empréstimo realizado: $titulo');
-    return true;
-  } else {
-    print('Item indisponível: $titulo');
-    return false;
-  }
-}
+
 
 class Emprestimo {
   ItemBiblioteca item;
@@ -151,5 +168,15 @@ void main() {
     ),
   ];
 
-  listarEstoque(acervo);
+  List<Emprestimo> emprestimos = [];
+
+  Emprestimo? e1 = acervo[0].emprestar(
+    nomeUsuario: 'Ana',
+    dataEmprestimo: DateTime(2026, 5, 1),
+    dataPrevistaDevolucao: DateTime(2026, 5, 8),
+  );
+
+  if (e1 != null) {
+    emprestimos.add(e1);
+  }
 }
